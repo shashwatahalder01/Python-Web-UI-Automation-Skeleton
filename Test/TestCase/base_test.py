@@ -2,24 +2,35 @@ import pathlib
 import unittest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from data.data import Data
+from testconf.runconfiguration import headless, linux
 
 
 class BaseTest(unittest.TestCase):
 
     def setUp(self):
+        self.data = Data
         options = Options()
-        # options.add_argument("--start-fullscreen")
+        if headless:
+            options.add_argument("--headless")
         # options.add_argument("--headless")
+        # options.add_argument("--start-fullscreen")
         # options.add_argument("--no-sandbox")
-        options.add_argument("--window-size=1920,1080")
-        # self.driver = webdriver.Chrome(executable_path=pathlib.Path(__file__).parent / "../browser/chromedriver", options=options)
-        self.driver = webdriver.Chrome(executable_path=pathlib.Path(__file__).parent / "../browser/chromedriver.exe", options=options)
+        # options.add_argument("--start-maximized")
+        # options.add_argument("-–incognito")
+        # options.add_argument("-–disable-notifications")  # only for chrome
+        # options.add_argument("download.default_directory=" + "Test/data")
+        # or
+        # options.add_argument("--start-fullscreen","-–incognito","-–disable-notifications" )
+        # options.add_argument("--window-size=1920,1080")
+        if linux:
+            self.driver = webdriver.Chrome(executable_path=pathlib.Path(__file__).parent / "../Browser/chromedriver", options=options)
+        else:
+            self.driver = webdriver.Chrome(executable_path=pathlib.Path(__file__).parent / "../Browser/chromedriver.exe", options=options)
+
         self.driver.maximize_window()
-        # self.driver.set_page_load_timeout(3000)
-        # self.driver.get('https://ee-portal.augmedix.com/')
-        self.driver.get('https://staging-customer.augmedix.com/')
-        # self.driver.get('https://accounts.google.com/signin/v2/identifier?flowName=GlifWebSignIn&flowEntry=ServiceLogin')
-        # self.driver.get('https://accounts.google.com/signin/v2/challenge/pwd?flowName=GlifWebSignIn&flowEntry=ServiceLogin&cid=1&navigationDirection=forward&TL=AM3QAYZzdiJaJlzVj3jf_F8SoPrBCfwe0hHPfAMT-b-bMzZ7chiJZhjNIiyFRz9P')
+        self.driver.set_page_load_timeout(3000)
+        self.driver.get(self.data.baseUrl)
 
     def tearDown(self):
         self.driver.close()

@@ -1,31 +1,22 @@
-import os, sys
-import pathlib
-from datetime import datetime
-time = str(datetime.today().strftime('%Y-%m-%d'))
+import os
+from Utils.uitlsfunction import readdate, readcounter, keepreports
 
-path = pathlib.Path(__file__).parent / "counter.txt"
+reportFolderName = f"{readdate()}_{readcounter()}"
 
-fileToRead =open(path, 'r+')
-data = int(fileToRead.read())
-
-newData = (data + 1)
-
-fileToRead.seek(0)
-fileToRead.write(str(newData))
-fileToRead.truncate()
-fileToRead.close()
-
-fileToReadForNewData = open(path, 'r')
-readNewData = fileToReadForNewData.read()
-fileToReadForNewData.close()
-
-#For running testCases
-command = "pytest -s --alluredir=ReportAllure1/"+ time + "_" + readNewData + " --html=ReportHtml/report_"+ time + "_" + readNewData + ".html --self-contained-html" + " " + "TestCase"
+# For running testCases
+command = f"pytest -s --alluredir=ReportAllure/{reportFolderName} --html=ReportHtml/report_{reportFolderName}.html --self-contained-html TestCase"
 os.system(command)
 
-# keep only 2 reports
-number = 2
-deletereports(number)
+#  Send email
+sender = 'asif.augmedix@gmail.com'
+password = 'asdfqwer#12'
+receivers = 'asif.rouf@augmedix.com, rouf.asifur@gmail.com'
+# sendemail(sender, password, receivers)
 
-#For generating report
-os.system("allure serve "+"ReportAllure1/" + time + "_" + readNewData)
+# number of allure & html reports to keep
+number = 2
+keepreports(number)
+
+# For generating report
+command = f"allure serve ReportAllure/{reportFolderName}"
+os.system(command)

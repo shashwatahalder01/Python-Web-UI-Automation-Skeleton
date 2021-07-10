@@ -1,4 +1,4 @@
-from pages.signin_page import SignInPage
+from Pages.signin_page import SignInPage
 from TestCase.base_test import BaseTest
 
 

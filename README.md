@@ -7,18 +7,25 @@
     $ run: pip3 install -r requirements.txt
 
 
+## Configure project
+#### Edit Test>testconf>runconfiguration for configure Test suite
+    $ system configuration
+        e.g. select headless mode, select os
+    $ project configuration
+        e.g. portal selection , admin selection
+
+
 ## Run Project
 
-    $ cd to the "Test/ui" directory
+    $ cd to the "Test" directory
     $ run: python3 testconf/runtest.py
-
 
 ## Run individual testcase
 
  ##### run test using unittest
 
     $ cd to the "Test" directory
-    $ python3 -m unittest TestCase.TC_file_name (without.py)
+    $ python3 -m unittest TestCase.TC_file_name (without '.py')
     
 ##### run test with allure report
 
