@@ -184,6 +184,18 @@ class BasePage(object):
     # Go back to previous page
     def go_back(self):
         return self.driver.back()
+    
+    # open new tab
+    def open_new_tab(self):
+        self.driver.execute_script("window.open('');")
+
+    # open url on new tab
+    def open_url_new_tab(self, url):
+        self.driver.execute_script(f"window.open('{url}','_blank')")
+
+    # Switch to window
+    def switch_to_window(self, window):
+        return self.driver.switch_to_window(self.driver.window_handles[window])
 
     #  Cookies ___________________________________________
 
