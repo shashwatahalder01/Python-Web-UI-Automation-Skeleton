@@ -650,4 +650,16 @@ class BasePage(object):
         val = self.get_attribute_value(attribute, *locator)
         assert val == result
 
+    # scroll in scrollable element
+        element = self.driver.find_element_by_xpath('//div[@class="_3Bc7H KPJpj"]')
+        sleep(10)
+        verical_ordinate = 100
+        for i in range(0, 50):
+            print(verical_ordinate)
+            self.driver.execute_script("arguments[0].scrollTop = arguments[1]", element, verical_ordinate)
+            verical_ordinate += 100
+            sleep(1)
+    
+    
+     
 
