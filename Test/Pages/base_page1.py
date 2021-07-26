@@ -660,6 +660,8 @@ class BasePage(object):
             verical_ordinate += 100
             sleep(1)
     
+    # scroll to bottom
+     self.driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")
     
      
 
