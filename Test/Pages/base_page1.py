@@ -668,4 +668,4 @@ class BasePage(object):
         # html.send_keys(Keys.PAGE_DOWN)
     
      
-
+    ########################### add .gitignore for .idea folder
