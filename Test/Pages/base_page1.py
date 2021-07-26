@@ -662,6 +662,10 @@ class BasePage(object):
     
     # scroll to bottom
      self.driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")
+        
+    #   # self.driver.execute_script("window.scrollTo(0, 100);")
+            # # html = self.driver.find_element_by_tag_name('html')
+        # html.send_keys(Keys.PAGE_DOWN)
     
      
 
