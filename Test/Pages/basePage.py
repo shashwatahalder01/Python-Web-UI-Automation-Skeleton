@@ -211,6 +211,43 @@ class BasePage(object):
         self.driver.get_cookies()
 
     # Waits__________________________________________________
+    
+    
+        # #  wait till visibility_of_element_located
+    # def wait_till_visibility_of_element_located(self, seconds, *locator):
+    #     try:
+    #         ignored_exceptions = (NoSuchElementException, StaleElementReferenceException)
+    #         wait = WebDriverWait(self.driver, seconds, ignored_exceptions=ignored_exceptions)
+    #         element = wait.until(ec.visibility_of_element_located(locator))
+    #         return element
+    #     except TimeoutException:
+    #         print(f"\n * ELEMENT NOT FOUND WITHIN GIVEN TIME! --> {seconds}")
+
+    # #  wait till visibility_of_element_located Loop : indefinitely
+    # def wait_till_visibility_of_element_located(self, seconds, *locator):
+    #     while True:
+    #         try:
+    #             ignored_exceptions = (NoSuchElementException, StaleElementReferenceException)
+    #             wait = WebDriverWait(self.driver, seconds, ignored_exceptions=ignored_exceptions)
+    #             element = wait.until(ec.visibility_of_element_located(locator))
+    #             return element
+    #         except TimeoutException:
+    #             print(f"\n * ELEMENT NOT FOUND WITHIN GIVEN TIME! --> {seconds}")
+
+    #  wait till visibility_of_element_located Loop : tries 3
+    def wait_till_visibility_of_element_located(self, seconds, *locator):
+        tries = 3
+        for i in range(tries):
+            try:
+                ignored_exceptions = (NoSuchElementException, StaleElementReferenceException)
+                wait = WebDriverWait(self.driver, seconds, ignored_exceptions=ignored_exceptions)
+                element = wait.until(ec.visibility_of_element_located(locator))
+                return element
+            except TimeoutException:
+                if i < tries - 1:  # i is zero indexed
+                    continue
+                else:
+                    print(f"\n * ELEMENT NOT FOUND WITHIN GIVEN TIME! --> {seconds}")
 
 
     #  wait till presence of element is located
