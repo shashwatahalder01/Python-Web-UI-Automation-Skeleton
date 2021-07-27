@@ -335,3 +335,11 @@ class BasePage(object):
     # implicit wait
     def implicit_waits(self, seconds):
         return self.driver.implicitly_wait(seconds)
+    
+        # Get multiple attribute
+    def get_multiple_attribute_value(self, attributes, *locator):
+        element = self.driver.find_element(*locator)
+        val = []
+        for attribute in attributes:
+            val.append(element.get_attribute(attribute))
+        return val
