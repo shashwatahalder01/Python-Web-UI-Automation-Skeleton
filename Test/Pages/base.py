@@ -847,3 +847,4 @@ class BasePage(object):
     # TODO: add agent
     # TODO: add cookies and set cookies
     # TODO: add browser Profile
+    # TODO: add move to element in for positive assert element is displayed
