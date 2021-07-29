@@ -462,6 +462,10 @@ class BasePage(object):
     # Switch to window
     def switch_to_window(self, window):
         return self.driver.switch_to_window(self.driver.window_handles[window])
+    
+     # Switch to parent window not working it may from switch to main frame
+    def switch_to_parent_window(self):
+        return self.driver.switch_to.default_content
 
     #  Cookies ___________________________________________
 
