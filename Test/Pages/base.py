@@ -336,9 +336,39 @@ class BasePage(object):
 
     # Moving between windows and frames____________________
 
+     # switch tab
+    def switch_tab(self):
+        self.driver.find_element_by_tag_name('body').send_keys(Keys.CONTROL + Keys.TAB)
+        
     # Switch to window
     def switch_to_window(self, window):
         return self.driver.switch_to_window(window)
+    
+    # Switch to window by window(e.g. CDwindow-BD9C79EE569362CD463868B54C725BEF [get by current window handle] )
+    def switch_to_window_by_window(self, window):
+        return self.driver.switch_to.window(window)
+        # return self.driver.switch_to_window(window) # deprecated
+        
+    # Switch to window by window handle number
+    def switch_to_window_by_handle_number(self, handle_number):
+        return self.driver.switch_to.window(self.driver.window_handles[handle_number])
+    
+    # Switch to parent window
+    def switch_to_parent_window(self):
+        return self.driver.switch_to.default_content()
+
+    # Get current window handle
+    def get_current_window_handle(self):
+        return self.driver.current_window_handle
+    
+    # Get list of all window handles
+    def get_all_window_handles(self):
+        return self.driver.window_handles
+
+    # Get length of all window handles
+    def get_number_of_all_window_handles(self):
+        handles = self.driver.window_handles
+        return len(handles)
 
     # count iframe
     def iframe_count(self):
