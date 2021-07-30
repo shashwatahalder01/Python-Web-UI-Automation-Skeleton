@@ -890,3 +890,18 @@ class BasePage(object):
         self.driver.find_element_by_tag_name('html').send_keys(Keys.CONTROL + 'w')
         self.driver.find_element_by_tag_name('html').send_keys(Keys.CONTROL + 'N')
         ActionChains(self.driver).key_down(Keys.CONTROL).send_keys('t').key_up(Keys.CONTROL).perform()
+    
+    # open new tab
+    def open_new_tab(self):
+        self.driver.execute_script("window.open('');")
+        self.switch_to_window_by_handle_number(-1)
+
+    # open url on new tab
+    def open_url_new_tab(self, url):
+        self.driver.execute_script(f"window.open('{url}','_blank')")
+        self.switch_to_window_by_handle_number(-1)
+
+    # open url on new window opening in new tab not window
+    def open_url_new_window(self, url):
+        self.driver.execute_script(f"window.open('{url}','new_window')")
+        self.switch_to_window_by_handle_number(-1)
