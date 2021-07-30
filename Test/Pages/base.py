@@ -883,3 +883,9 @@ class BasePage(object):
     # TODO: add browser Profile
     # TODO: add move to element in for positive assert element is displayed
     # TODO: remove * from all method send tuple as argument
+    
+    #TODO: send contrl tnw to html body or html (not working right now)
+            # self.driver.find_element_by_tag_name('body').send_keys(Keys.COMMAND + 't')
+        # self.driver.find_element_by_tag_name('html').send_keys(Keys.CONTROL + 't')
+        self.driver.find_element_by_tag_name('html').send_keys(Keys.CONTROL + 'w')
+        self.driver.find_element_by_tag_name('html').send_keys(Keys.CONTROL + 'N')
