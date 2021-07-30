@@ -889,3 +889,4 @@ class BasePage(object):
         # self.driver.find_element_by_tag_name('html').send_keys(Keys.CONTROL + 't')
         self.driver.find_element_by_tag_name('html').send_keys(Keys.CONTROL + 'w')
         self.driver.find_element_by_tag_name('html').send_keys(Keys.CONTROL + 'N')
+        ActionChains(self.driver).key_down(Keys.CONTROL).send_keys('t').key_up(Keys.CONTROL).perform()
