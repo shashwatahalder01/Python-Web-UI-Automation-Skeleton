@@ -374,6 +374,13 @@ class BasePage(object):
     def switch_to_window_by_handle_number(self, handle_number):
         return self.driver.switch_to.window(self.driver.window_handles[handle_number])
 
+    #  TODO: which one are correct???
+    # def get_window_handle(self, num):
+    #     return self.driver.window_handles[num]
+    #
+    # def switch_window(self, win):
+    #     return self.driver.switch_to_window(win)
+
 
     # Get current window handle
     def get_current_window_handle(self):

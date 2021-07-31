@@ -10,51 +10,59 @@ from email.header import Header
 from datetime import datetime
 # from runconfiguration import linux
 
+# Read counter
+def readCounter():
+    # read counter
+    path = Path(__file__).parent / "counter.txt"
+    f = open(path, 'r+')
+    data = int(f.read())
+    return data
 
-# Read counter number
-def readcounter():
+
+# Read and Update counter
+def readAndUpdateCounter():
     # read counter
     path = Path(__file__).parent / "counter.txt"
     f = open(path, 'r+')
     data = int(f.read())
     # update counter
-    newcounter = str(data + 1)
+    newCounter = str(data + 1)
     # write new counter
     f.seek(0)
-    f.write(newcounter)
+    f.write(newCounter)
     f.truncate()
     f.close()
-    return newcounter
+    return newCounter
 
 
 # Read current date
-def readdate():
+def readDate():
     return str(datetime.today().strftime('%Y-%m-%d'))
 
 
 # Send mail
-def sendmail(senderemail, senderpassword, receiversemail, mailsubject, mailbody, attachedfilepath, bccemail=''):
+def sendmail(senderEmail, senderPassword, receiversEmail, mailSubject, mailBody, attachedFilePath, bccMail=''):
     # Mail content, format, encoding
     message = MIMEMultipart()
-    message['From'] = senderemail
-    message['To'] = receiversemail
-    message['Subject'] = Header(mailsubject, 'utf-8')
-    if bccemail:
-        message['Bcc'] = bccemail
-    message.attach(MIMEText(mailbody))
+    message['From'] = senderEmail
+    message['To'] = receiversEmail
+    message['Subject'] = Header(mailSubject, 'utf-8')
+    if bccMail:
+        message['Bcc'] = bccMail
+    message.attach(MIMEText(mailBody))
 
     # build the attachment
     attachment = MIMEBase('application', 'octet-stream')
-    attachment.set_payload(open(attachedfilepath, 'rb').read())
+    attachment.set_payload(open(attachedFilePath, 'rb').read())
     encoders.encode_base64(attachment)
-    attachment.add_header('Content-Disposition', 'attachment; filename="%s"' % os.path.basename(attachedfilepath))
+    attachment.add_header('Content-Disposition', 'attachment; filename="%s"' % os.path.basename(attachedFilePath))
     message.attach(attachment)
 
     try:
         server = smtplib.SMTP('smtp.gmail.com', 587)
         server.ehlo()
         server.starttls()
-        server.login(senderemail, senderpassword)
+        server.login(senderEmail, senderPassword)
         server.send_message(message)
         # server.sendmail(senderemail, receivers, message.as_string())
         print("Send email successfully!!!")
@@ -64,16 +72,16 @@ def sendmail(senderemail, senderpassword, receiversemail, mailsubject, mailbody,
 
 
 # Delete Folder and its content except last n number of dirs
-def deldir(num_of_dir):
+def del_dir(num_of_dir):
     basedir = Path(__file__).resolve().parent.parent
-    dirname = "ReportAllure"
-    dirpath = os.path.join(basedir, dirname)
+    dirName = "ReportAllure"
+    dirPath = os.path.join(basedir, dirName)
     # print(dirPath)
     # dirList = [f for f in sorted(os.listdir(dirPath))]
-    dirlist = [os.path.join(dirpath, f) for f in sorted(os.listdir(dirpath))]
-    dirlist = dirlist[:len(dirlist) - num_of_dir]
+    dirList = [os.path.join(dirPath, f) for f in sorted(os.listdir(dirPath))]
+    dirList = dirList[:len(dirList) - num_of_dir]
     # print(dirList)
-    for folder in dirlist:
+    for folder in dirList:
         try:
             shutil.rmtree(folder)
             # print('delete: ' + delDir)
@@ -83,21 +91,20 @@ def deldir(num_of_dir):
 
 
 # Delete file except last n number of files
-def delfile(num_of_file):
+def del_file(num_of_file):
     basedir = Path(__file__).resolve().parent.parent
-    dirname = "ReportHtml"
-    dirpath = os.path.join(basedir, dirname)
-    filelist = [os.path.join(dirpath, f) for f in sorted(os.listdir(dirpath))]
-    filelist = filelist[:len(filelist) - num_of_file]
+    dirName = "ReportHtml"
+    dirPath = os.path.join(basedir, dirName)
+    fileList = [os.path.join(dirPath, f) for f in sorted(os.listdir(dirPath))]
+    fileList = fileList[:len(fileList) - num_of_file]
     # print(fileList)
-    for file in filelist:
+    for file in fileList:
         os.remove(file)
 
 
-def keepreports(number):
-    deldir(number)
-    delfile(number)
-
+def keep_reports(number):
+    del_dir(number)
+    del_file(number)
 
 def sendemail(sender, password, receivers):
     bccemail = ''
