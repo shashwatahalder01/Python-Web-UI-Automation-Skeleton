@@ -135,3 +135,9 @@ def createFile(filename, sheetname):
 # writeinmergecell(path, 'a', 'A1', 'C1', 1, 1, 0, data)
 # mergecell(path, 'a', 1, 3, 0, "data")
 # writesinglerow(path, 'a', 1, 1, 0, data)
+
+def insert_col(file, sheet_name, col_num):
+    wb = openpyxl.load_workbook(file)
+    sheet = wb[sheet_name]
+    sheet.insert_cols(col_num)
+    wb.save(file)
