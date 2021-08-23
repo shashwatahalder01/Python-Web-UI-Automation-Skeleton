@@ -141,3 +141,24 @@ def insert_col(file, sheet_name, col_num):
     sheet = wb[sheet_name]
     sheet.insert_cols(col_num)
     wb.save(file)
+    
+def get_sheet_names(file):
+    wb = openpyxl.load_workbook(file)
+    sheets = wb.sheetnames
+    print(sheets)
+
+
+def delete_all_sheets(file):
+    wb = openpyxl.load_workbook(file)
+    sheets = wb.sheetnames
+    for sheet in sheets:
+        wb.remove(wb[sheet])
+    wb.create_sheet("Sheet", 0)  # need at-least one sheet
+    wb.save(file)
+
+
+def create_sheet(file, sheet_name, sheet_index):
+    wb = openpyxl.Workbook()
+    wb.create_sheet(sheet_name, sheet_index)
+    wb.save(file)
+
